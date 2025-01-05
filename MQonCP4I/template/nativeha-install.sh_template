@@ -1,0 +1,21 @@
+#! /bin/bash
+
+#Use storage class ibmc-file-gold-gid when running on ROKS clusters
+#Use storage class managed-nfs-storage when running on CoC PoT clusters
+#mq00 reserved for instructor
+export TARGET_NAMESPACE=$TARGET_NAMESPACE
+export QMInstance=$QMInstance
+export QMpre=$QMpre
+export QMname=$QMname
+export ROUTE=$ROUTE
+export CHLCAPS=$CHLCAPS
+export CHANNEL=$CHANNEL
+export SC=$SC
+#export SC=ibmc-file-gold-gid
+export VERSION=$VERSION
+export LICENSE=$LICENSE
+
+( echo "cat <<EOF" ; cat nativeha.yaml_template ; echo EOF ) | sh > nativeha.yaml
+
+oc apply -f nativeha.yaml -n $TARGET_NAMESPACE
+

@@ -1,0 +1,34 @@
+#! /bin/bash
+
+#Use storage class ibmc-file-gold-gid when running on ROKS clusters
+#Use storage class managed-nfs-storage when running on CoC PoT clusters
+#mq00 reserved for instructor
+export TARGET_NAMESPACE=$TARGET_NAMESPACE
+export QMpre=$QMpre
+export QMInstancea=$QMInstancea
+export QMnamea=$QMnamea
+export CONNAMEa=$CONNAMEa
+export SERVICEa=$SERVICEa
+export CHANNELa=$CHANNELa
+export TOCLUSa=$TOCLUSa
+export QMInstanceb=$QMInstanceb
+export QMnameb=$QMnameb
+export CONNAMEb=$CONNAMEb
+export SERVICEb=$SERVICEb
+export CHANNELb=$CHANNELb
+export TOCLUSb=$TOCLUSb
+export QMInstancec=$QMInstancec
+export QMnamec=$QMnamec
+export CONNAMEc=$CONNAMEc
+export SERVICEc=$SERVICEc
+export CHANNELc=$CHANNELc
+export TOCLUSc=$TOCLUSc
+export UNICLUS=$UNICLUS
+export SC=$SC
+#export SC=ibmc-file-gold-gid
+export VERSION=$VERSION
+export LICENSE=$LICENSE
+
+( echo "cat <<EOF" ; cat unicluster.yaml_template ; echo EOF ) | sh > unicluster.yaml
+
+oc apply -f unicluster.yaml  -n $TARGET_NAMESPACE

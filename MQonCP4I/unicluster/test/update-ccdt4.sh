@@ -1,5 +1,4 @@
 #!/bin/bash
-set -x
 #
 # This script will create the requied build scripts for all MQ labs 
 #

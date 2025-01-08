@@ -49,12 +49,10 @@ export QMnamec="mq"$STUDENT_NUM"c"
 export CHANNELA="MQ"$STUDENT_NUM"CHLA"    
 export CHANNELB="MQ"$STUDENT_NUM"CHLB"
 export CHANNELC="MQ"$STUDENT_NUM"CHLC"
-export CHANNELD="MQ"$STUDENT_NUM"CHLD"
 
 export CONNAMEa=$NS"-mq"$STUDENT_NUM"a-ibm-mq"
 export CONNAMEb=$NS"-mq"$STUDENT_NUM"b-ibm-mq"
 export CONNAMEc=$NS"-mq"$STUDENT_NUM"c-ibm-mq"
-export CONNAMEd=$NS"-mq"$STUDENT_NUM"d-ibm-mq"
 #
 export HOSTa=$(oc get route $CONNAMEa"-qm" -n $NS -o jsonpath='{.spec.host}')
 echo "host = $HOSTa"
@@ -62,8 +60,3 @@ export HOSTb=$(oc get route $CONNAMEb"-qm" -n $NS -o jsonpath='{.spec.host}')
 export HOSTc=$(oc get route $CONNAMEc"-qm" -n $NS -o jsonpath='{.spec.host}')
 
 ( echo 'cat <<EOF' ; cat ccdt.json_template ; echo EOF ) | sh > ccdt.json 
-exit
-( echo 'cat <<EOF' ; cat template/uni-install.sh_template ; echo EOF ) | sh > $UNICLUSTER_DIR"uni-install.sh" 
-
-
-

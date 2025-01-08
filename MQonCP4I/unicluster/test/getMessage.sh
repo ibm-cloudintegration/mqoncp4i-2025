@@ -8,6 +8,6 @@ export MQCHLTAB='/home/ibmuser/MQonCP4I/unicluster/test/ccdt.json'
 export MQAPPLNAME='MY.GETTER.APP'
 export MQCCDTURL='/home/ibmuser/MQonCP4I/unicluster/test/ccdt.json'
 export MQSSLKEYR='/home/ibmuser/MQonCP4I/unicluster/test/key'
-
-echo "Starting amqsghac" $QMname
-/opt/mqm/samp/bin/amqsghac $APPQ $QMname
+CCDT_NAME=${2:-"*ANY_QM"}
+echo "Starting amqsghac" $CCDT_NAME
+/opt/mqm/samp/bin/amqsghac APPQ $CCDT_NAME

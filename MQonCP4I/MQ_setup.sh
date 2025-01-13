@@ -126,21 +126,11 @@ export SERVICEc="mq"$STUDENT_NUM"c-ibm-mq"
 export CHANNELc="mq"$STUDENT_NUM"chlc"
 export TOCLUSc="TO_UNICLUS_mq"$STUDENT_NUM"c"
 
-export QMInstanced=$TARGET_NAMESPACE"-mq"$STUDENT_NUM"d"
-export QMnamed="mq"$STUDENT_NUM"d"
-export CONNAMEd="mq"$STUDENT_NUM"d-ibm-mq"
-export SERVICEd="mq"$STUDENT_NUM"d-ibm-mq"
-export CHANNELd="mq"$STUDENT_NUM"chld"
-export TOCLUSd="TO_UNICLUS_mq"$STUDENT_NUM"d"
-
 export UNICLUS=UNICLUS"$STUDENT_NUM"
 
 export UNICLUSTER_DIR="unicluster/deploy/"
 ( echo 'cat <<EOF' ; cat template/uni-install.sh_template ; echo EOF ) | sh > $UNICLUSTER_DIR"uni-install.sh" 
 chmod +x $UNICLUSTER_DIR"uni-install.sh"
-
-( echo 'cat <<EOF' ; cat template/uni-addqmgr.sh_template ; echo EOF ) | sh > $UNICLUSTER_DIR"uni-addqmgr.sh"  
-chmod +x $UNICLUSTER_DIR"uni-addqmgr.sh"
 
 echo "[INFO] unicluster build yaml scripts is complete."
 

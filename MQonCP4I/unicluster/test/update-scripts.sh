@@ -69,4 +69,5 @@ echo "Update the Putter app Completed"
 echo ""
 echo "Update the Getter app ..."
 ( echo 'cat <<EOF' ; cat getter.template ; echo EOF ) | sh > getterApp.sh
+chmod +x getterApp.sh 
 echo "Update the Getter app Completed"

@@ -2,5 +2,5 @@
 #
 for i in ${QMnamea} ${QMnameb} ${QMnamec}
 do
-gnome-terminal --title="Getter $i" -- $HOME/MQonCP4I/unicluster/test/showConns.sh $i Putter
+gnome-terminal --geometry=10x5 --title="Putter $i" -- $HOME/MQonCP4I/unicluster/test/showConns.sh $i Putter
 done

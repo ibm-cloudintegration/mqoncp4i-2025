@@ -10,9 +10,11 @@ if [ $2 == "Getter" ]
  then
    export MQAPPLNAME='MY.GETTER.APP'
    export APPNAME=amqsghac
+   export COLOR=$green
  else 
    export MQAPPLNAME='MY.PUTTER.APP'
    export APPNAME=amqsphac
+  export COLOR=$yellow
 fi 
 
 export APPQ=APPQ
@@ -27,14 +29,8 @@ for (( i=0; i<100000; ++i)); do
   CONNCOUNT=`echo "dis conn(*) where(appltag eq '$MQAPPLNAME')" | runmqsc -c $1 | grep "  CONN" | wc -w`
   BALANCED=`echo "dis apstatus('$MQAPPLNAME')" | runmqsc $1 | grep "  BALANCED"`
   clear
-  if [ $2 == "Getter" ]
-   then
-    echo -e "${green}$1${nc} / ${green}$MQAPPLNAME${nc} -- ${lgreen}$CONNCOUNT${nc}"
+    echo -e "${COLOR}$1${nc} / ${COLOR}$MQAPPLNAME${nc} -- ${COLOR}$CONNCOUNT${nc}"
     echo "dis conn(*) where(appltag eq '$MQAPPLNAME')" | runmqsc $1 | grep "  CONN"
-   else 
-    echo -e "${yellow}$1${nc} / ${yellow}$MQAPPLNAME${nc} -- ${yellow}$CONNCOUNT${nc}"
-    echo "dis conn(*) where(appltag eq '$MQAPPLNAME')" | runmqsc $1 | grep "  CONN"
-  done
   sleep $DELAY
 done
 

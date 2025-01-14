@@ -1,5 +1,5 @@
 #!/bin/bash
 for i in ${QMnamea} ${QMnameb} ${QMnamec}
 do
-gnome-terminal --geometry=10x5 --title="Getter \$i" -- $HOME/MQonCP4I/unicluster/test/showConns.sh \$i Getter
+gnome-terminal --geometry=10x5 --title="Getter" -- $HOME/MQonCP4I/unicluster/test/showConns.sh \$i Getter
 done

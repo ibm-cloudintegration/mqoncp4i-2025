@@ -1,0 +1,18 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: pot-nativeha-configmap
+  namespace: student2
+data:
+  nativeha-mqsc.mqsc: |-
+     DEFINE CHANNEL('MTLS.SVRCONN') CHLTYPE(SVRCONN) SSLCAUTH(REQUIRED) SSLCIPH('ANY_TLS13_OR_HIGHER') REPLACE
+     SET CHLAUTH('MTLS.SVRCONN') TYPE(SSLPEERMAP) SSLPEER('CN=*') USERSRC(NOACCESS) ACTION(REPLACE)
+     SET CHLAUTH('MTLS.SVRCONN') TYPE(SSLPEERMAP) SSLPEER('CN=pot-app1') USERSRC(MAP) MCAUSER('app1') ACTION(REPLACE)
+     SET AUTHREC PRINCIPAL('app1') OBJTYPE(QMGR) AUTHADD(CONNECT,INQ)
+     DEFINE QLOCAL('EXAMPLE.QUEUE') REPLACE
+     SET AUTHREC PROFILE('EXAMPLE.QUEUE') PRINCIPAL('app1') OBJTYPE(QUEUE) AUTHADD(BROWSE,PUT,GET,INQ)
+  nativeha-tls.ini: |
+    Service:
+        Name=AuthorizationService
+        EntryPoints=14
+        SecurityPolicy=UserExternal

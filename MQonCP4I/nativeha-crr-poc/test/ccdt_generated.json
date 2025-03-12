@@ -1,0 +1,28 @@
+{
+  "channel":
+  [
+    {
+      "general":
+      {
+        "description": "MQ channel details"
+      },
+      "name": "NATIVEHACHL",
+      "clientConnection":
+      {
+        "connection":
+        [
+          {
+            "host": "student2-mq02ha-ibm-mq-qm-student2.apps.67c20883d1ee7bb0b5beada0.am1.techzone.ibm.com",
+            "port": 443
+          }
+        ],
+        "queueManager": "mq02ha"
+      },
+      "transmissionSecurity":
+      {
+        "cipherSpecification": "ANY_TLS12_OR_HIGHER"
+      },
+	  "type": "clientConnection"
+    }
+  ]
+}

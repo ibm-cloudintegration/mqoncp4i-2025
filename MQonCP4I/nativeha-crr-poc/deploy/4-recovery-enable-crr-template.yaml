@@ -1,0 +1,13 @@
+spec:
+  queueManager:
+    availability:
+      nativeHAGroups:
+        remotes:
+          - addresses:
+              - '$HOST:443'
+            name: live_group
+            trust:
+              - secret:
+                  items:
+                    - tls.crt
+                  secretName: $QMGR_NAME-qm-tls

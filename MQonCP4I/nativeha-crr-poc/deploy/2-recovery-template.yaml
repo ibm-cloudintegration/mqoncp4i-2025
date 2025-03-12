@@ -1,0 +1,114 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: ${QMGR_NAME_LOWERCASE}-mqsc
+  namespace: $TARGET_NAMESPACE
+data:
+  ${QMGR_NAME_LOWERCASE}-mqsc.mqsc: |-
+    define ql(APPQ) DEFPSIST(YES)
+    define ql(APPQ1) DEFPSIST(YES)
+    DEFINE CHANNEL($CHLCAPS) CHLTYPE(SVRCONN) TRPTYPE(TCP) SSLCAUTH(OPTIONAL) SSLCIPH('ANY_TLS12_OR_HIGHER')
+    set chlauth($CHLCAPS) TYPE(BLOCKUSER) USERLIST(NOBODY)
+    REFRESH SECURITY TYPE(CONNAUTH)
+  nativeha-tls.ini: |
+    Service:
+        Name=AuthorizationService
+        EntryPoints=14
+        SecurityPolicy=UserExternal
+---
+kind: Secret
+apiVersion: v1
+metadata:
+  name: ${QMGR_NAME_LOWERCASE}-qm-tls
+  namespace: $TARGET_NAMESPACE
+data:
+  tls.crt: $QM_CERT
+  tls.key: $QM_KEY
+  ca.crt: $CA_CERT
+type: Opaque
+---
+apiVersion: mq.ibm.com/v1beta1
+kind: QueueManager
+metadata:
+  name: $TARGET_NAMESPACE-${QMGR_NAME_LOWERCASE}
+  namespace: $TARGET_NAMESPACE
+spec:
+  version: $VERSION
+  license:
+    accept: true
+    license: $LICENSE
+    use: "NonProduction"
+  pki:
+    keys:
+    - name: default
+      secret:
+        secretName: ${QMGR_NAME_LOWERCASE}-qm-tls
+        items:
+          - tls.key
+          - tls.crt
+          - ca.crt
+  web:
+    console:
+      authentication: {}
+      authorization: {}
+    enabled: true
+  securityContext:
+    initVolumeAsRoot: false
+    readOnlyRootFilesystem: false
+  telemetry:
+    tracing:
+      instana:
+        enabled: false
+        protocol: http
+  queueManager:
+    name: ${QMGR_NAME_LOWERCASE}
+    mqsc:
+      - configMap:
+          name: ${QMGR_NAME_LOWERCASE}-mqsc
+          items:
+            - ${QMGR_NAME_LOWERCASE}-mqsc.mqsc
+    availability:
+      type: NativeHA
+      tls:
+        secretName: ${QMGR_NAME_LOWERCASE}-qm-tls
+      nativeHAGroups:
+        local:
+          name: recovery_group
+          role: Recovery
+          route:
+            enabled: true
+    storage:
+      persistedData:
+        enabled: true
+        class: $SC
+      queueManager:
+        enabled: true
+        class: $SC
+      recoveryLogs:
+        enabled: true
+        class: $SC
+  template:
+    pod:
+      containers:
+        - env:
+            - name: MQSNOAUT
+              value: 'yes'
+          name: qmgr
+  route:
+    enabled: true
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: ${QMGR_NAME_LOWERCASE}-${CHANNEL}-ibm-mq-qm
+  namespace: $TARGET_NAMESPACE
+spec:
+  host: ${CHANNEL}.chl.mq.ibm.com
+  to:
+    kind: Service
+    name: ${QMGR_NAME_LOWERCASE}-ibm-mq
+  port:
+    targetPort: 1414
+  tls:
+    termination: passthrough
+  wildcardPolicy: None

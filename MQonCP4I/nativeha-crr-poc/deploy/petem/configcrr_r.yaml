@@ -1,0 +1,51 @@
+apiVersion: mq.ibm.com/v1beta1
+kind: QueueManager
+metadata:
+  name: exampleqm
+spec:
+  license:
+    accept: true
+    license: L-HYGL-6STWD6
+    use: Development
+  queueManager:
+    name: EXAMPLEQM
+    availability:       
+      nativeHAGroups:
+        local:
+          name: Rome_group
+          role: Recovery
+        remotes: 
+          - addresses:  
+              - "Londongrouphost:443"
+            name: London_group
+            trust: 
+              - secret:   
+                  items:
+                    - tls.crt       
+                  secretName: nhacrr_london_ext
+      type: NativeHA
+      tls:
+        secretName: example-qm-tls
+    mqsc:
+    - configMap:
+        name: example-nativeha-configmap
+        items:
+        - example-tls.mqsc
+    ini:
+    - configMap:
+        name: example-nativeha-configmap
+        items:
+        - example-tls.ini
+    storage:
+      queueManager:
+        type: persistent-claim
+  version: 9.4.2.0-r1
+  pki:
+    keys:
+      - name: default
+        secret:
+          secretName: example-qm-tls
+          items:
+            - tls.key
+            - tls.crt
+            - ca.crt

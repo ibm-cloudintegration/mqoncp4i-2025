@@ -1,0 +1,13 @@
+spec:
+  queueManager:
+    availability:
+      nativeHAGroups:
+        remotes:
+          - addresses:
+              - 'student2-mq02ha-ibm-mq-nhacrr-student2.apps.67c20883d1ee7bb0b5beada0.am1.techzone.ibm.com:443'
+            name: live_group
+            trust:
+              - secret:
+                  items:
+                    - tls.crt
+                  secretName: mq02ha-qm-tls

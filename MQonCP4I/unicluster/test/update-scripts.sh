@@ -59,15 +59,16 @@ echo "host = $HOSTa"
 export HOSTb=$(oc get route $CONNAMEb"-qm" -n $NS -o jsonpath='{.spec.host}')
 export HOSTc=$(oc get route $CONNAMEc"-qm" -n $NS -o jsonpath='{.spec.host}')
 
-( echo 'cat <<EOF' ; cat ccdt.json_template ; echo EOF ) | sh > ccdt.json 
+##( echo 'cat <<EOF' ; cat ccdt.json_template ; echo EOF ) | sh > ccdt.json 
+( echo 'cat <<EOF' ; cat ccdt.json_template ) | sh > ccdt.json 
 echo "Update the CCDT file Completed"
 echo ""
 echo "Update the Putter app ..."
-( echo 'cat <<EOF' ; cat putter.template ; echo EOF ) | sh > putterApp.sh
+( echo 'cat <<EOF' ; cat putter.template ) | sh > putterApp.sh
 chmod +x putterApp.sh 
 echo "Update the Putter app Completed"
 echo ""
 echo "Update the Getter app ..."
-( echo 'cat <<EOF' ; cat getter.template ; echo EOF ) | sh > getterApp.sh
+( echo 'cat <<EOF' ; cat getter.template ) | sh > getterApp.sh
 chmod +x getterApp.sh 
 echo "Update the Getter app Completed"

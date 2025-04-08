@@ -1,0 +1,6 @@
+spec:
+  queueManager:
+    availability:
+      nativeHAGroups:
+        local:
+          role: $ROLE

@@ -1,0 +1,20 @@
+spec:
+  queueManager:
+    availability:
+      tls:
+        secretName: ${QMname}-qm-tls
+      nativeHAGroups:
+        local:
+          name: live_group
+          role: Live
+          route:
+            enabled: true
+        remotes:
+          - addresses:
+              - '$HOST:443'
+            name: recovery_group
+            trust:
+              - secret:
+                  items:
+                    - tls.crt
+                  secretName: ${QMname}-qm-tls

@@ -18,9 +18,9 @@ export QM_KEY=$(cat mtls/nativeha.key | base64 | tr -d '\n')
 export QM_CERT=$(cat mtls/nativeha.crt | base64 | tr -d '\n')
 export CA_CERT=$(cat mtls/ca.crt | base64 | tr -d '\n')
 
-( echo "cat <<EOF" ; cat nativeha.yaml_template ; echo EOF ) | sh > nativeha.yaml
+( echo "cat <<EOF" ; cat recovery.yaml_template ; echo EOF ) | sh > recovery.yaml
 
-oc apply -f nativeha.yaml -n $TARGET_NAMESPACE
+oc apply -f recovery.yaml -n $TARGET_NAMESPACE
 
 # create kdb file
 rm ../test/key.*

@@ -68,7 +68,15 @@ spec:
           items:
             - ${QMname}-mqsc.mqsc
     availability:
-      type: NativeHA
+    type: NativeHA
+    tls:
+      secretName: ${QMname}-qm-tls
+    nativeHAGroups:
+      local:
+        name: live_group
+        role: Live
+        route:
+          enabled: true
     storage:
       persistedData:
         enabled: true

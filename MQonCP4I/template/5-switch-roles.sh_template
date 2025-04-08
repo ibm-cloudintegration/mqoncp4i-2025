@@ -1,0 +1,17 @@
+#! /bin/bash
+#Use storage class ibmc-file-gold-gid when running on ROKS clusters
+#Use storage class managed-nfs-storage when running on CoC PoT clusters
+#mq00 reserved for instructor
+
+source ../../setup.properties
+set -x
+oc project $TARGET_NAMESPACE
+export HA_DIR_DEPLOY="nativeha-crr/deploy"
+export TARGET_NAMESPACE=$TARGET_NAMESPACE
+export QMInstance=$QMInstance
+export QMpre=$QMpre
+export QMname=$QMname
+
+( echo "cat <<EOF" ; cat 5-switch-roles-template.yaml ; echo EOF ) | sh > 5-switch-roles.yaml
+
+./5-switch-patch.sh $QMInstance $TARGET_NAMESPACE

@@ -1,0 +1,37 @@
+#! /bin/bash
+#Use storage class ibmc-file-gold-gid when running on ROKS clusters
+#Use storage class managed-nfs-storage when running on CoC PoT clusters
+#mq00 reserved for instructor
+
+source ../../setup.properties
+#oc login https://api.67c20883d1ee7bb0b5beada0.am1.techzone.ibm.com:6443 -u student8 -p welcometoFSMpot
+oc login $OCP_CLUSTER1 -u $OCP_CLUSTER_USER -p $OCP_CLUSTER_PASSWORD
+
+oc project $TARGET_NAMESPACE
+export HA_DIR_DEPLOY="nativeha-crr/deploy"
+export TARGET_NAMESPACE=$TARGET_NAMESPACE
+export QMInstance=$QMInstance
+export QMpre=$QMpre
+export QMname=$QMname
+export ROUTE=$ROUTE
+export CHLCAPS=$CHLCAPS
+export CHANNEL=$CHANNEL
+export SC=$SC
+#export SC=ibmc-file-gold-gid
+export VERSION=$VERSION
+export LICENSE=$LICENSE
+
+export QM_KEY=$(cat nativeha-crr/deploy/certs/${QMname}.key | base64 | tr -d '\n')
+export QM_CERT=$(cat nativeha-crr/deploy/certs/${QMname}.crt | base64 | tr -d '\n')
+export CA_CERT=$(cat nativeha-crr/deploy/certs/${QMname}-ca.crt | base64 | tr -d '\n')
+
+( echo "cat <<EOF" ; cat 1-live-template.yaml ; echo EOF ) | sh > 1-live-active.yaml
+
+oc apply -f 1-live-active.yaml -n $TARGET_NAMESPACE
+
+# create kdb file
+rm ../test/key.*
+runmqakm -keydb -create -db ../test/key.kdb -type cms -pw passw0rd -stash
+runmqakm -cert -add -db ../test/key.kdb -pw passw0rd -label ca -file certs/${QMname}-ca.crt
+runmqakm -cert -add -db ../test/key.kdb -pw passw0rd -label nativeha -file certs/${QMname}.crt
+

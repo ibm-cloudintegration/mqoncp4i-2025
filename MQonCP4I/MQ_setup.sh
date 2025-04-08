@@ -6,6 +6,7 @@
 # Set script variables
 #
 source setup.properties
+#
 textreset=$(tput sgr0) # reset the foreground colour
 red=$(tput setaf 1)
 green=$(tput setaf 2) 
@@ -13,26 +14,33 @@ yellow=$(tput setaf 3)
 bold=$(tput bold)
 normal=$(tput sgr0)
 #
-# This script will create the requied build scripts for all MQ labs 
+# This script will create the required build scripts for all MQ labs 
 #
-ERRORMSG1="Error invalid arg:  \n\n
+ERRORMSG1="Error invalid arg:  \n
 Usage: $0 -i 01 -n student1 \n
     -i, Student number \n
-    -n, Student Namespace"
+    -n, Student Namespace \n"
 
-ERRORMSG2="Missing args:  \n\n
+ERRORMSG2="Missing args:  \n
 Usage: $0 -i 01 -n student1 \n
     -i, Student number \n
-    -n, Student Namespace"
+    -n, Student Namespace \n"
 
-   while getopts ':i:n:' flag;
+   while getopts ':i:n:p:r:' flag;
      do
        case "${flag}" in
          i) student=${OPTARG}
-                printf -v STUDENT_NUM "%02d" $student; 
+              length=${#student}
+              echo "length = $length"
+              if [ $length -ne 2 ]; then
+                STUDENT_NUM=$(printf "%02d" "$student")
+                else 
+                STUDENT_NUM=$student
+              fi
            	echo $STUDENT_NUM
 	      ;;
-         n) NS=${OPTARG};;
+         n) NS=${OPTARG}
+        ;;
          *) echo -e ${ERRORMSG1}
 		exit 1;;
        esac
@@ -59,18 +67,33 @@ echo " You have set the Namespace to $NS and the instance number to $STUDENT_NUM
 export IBM_MQ_LICENSE=$IBM_MQ_LICENSE
 export IBM_MQ_VERSION=$IBM_MQ_VERSION
 export TARGET_NAMESPACE=$NS
+if [ $NS == "cp4i-mq" ]
+  then
+   export QMGR_NS=""
+   else 
+   export QMGR_NS=$TARGET_NAMESPACE"-"
+fi
+echo "QMGR_NS = " $QMGR_NS
+echo "QMpre - " $STUDENT_NUM
+
 export QMpre="mq"$STUDENT_NUM
 export VERSION=$IBM_MQ_VERSION
 export LICENSE=$IBM_MQ_LICENSE
+export MQ_NATIVEHA_HOST=$OCP_CLUSTER1
+export MQ_RECOVERY_HOST=$RECV_HOST
 export SC=ocs-storagecluster-ceph-rbd
 #export SC=ibmc-file-gold-gid
+export OCP_CLUSTER1=$OCP_CLUSTER1
+export OCP_CLUSTER2=$OCP_CLUSTER2
+export OCP_CLUSTER_USER=$OCP_CLUSTER_USER
+export OCP_CLUSTER_PASSWORD=$OCP_CLUSTER_PASSWORD
 #
 # Build the StreamQ build yaml script.
 #
 echo "..."
 echo "[INFO] Build the ${bold}deployment yamls and test scripts for streamQ labs. ${normal} "
 
-export QMInstance=$TARGET_NAMESPACE"-"$QMpre"strm"
+export QMInstance=$QMGR_NS$QMpre"strm"
 export QMname="mq"$STUDENT_NUM"strm"
 export ROUTE="mq"$STUDENT_NUM"strmchl.chl.mq.ibm.com"
 export CHLCAPS="MQ"$STUDENT_NUM"STRMCHL"
@@ -86,40 +109,80 @@ echo "[INFO] StreamQ build yaml script is complete."
 # Build the nativeHA build yaml script.
 #
 echo "...."
-echo "[INFO] Build the ${bold}deployment yamls and test scripts for navtiveHA labs. ${normal} "
+echo "[INFO] Build the ${bold}deployment yamls and test scripts for navtiveHA CRR labs. ${normal} "
+export QMname="mq"$STUDENT_NUM"ha"
+export QMInstance=$QMGR_NS$QMname
+export CHANNEL="mq"$STUDENT_NUM"hachl"
+export ROUTE=$QMGR_NS"mq"$STUDENT_NUM"ha-nativehachl-ibm-mq-qm"
+export CHLCAPS="MQ"$STUDENT_NUM"HACHL"
+export HA_DIR="nativeha-crr/deploy/"
+###./0-generate-certificates.sh $QMname > /dev/null 2>&1
+echo "[INFO] Build nativeHA CRR Live script 1"
+( echo 'cat <<EOF' ; cat template/1-live-deploy.sh_template ; echo EOF ) | sh > $HA_DIR"1-live-deploy.sh"
+
+chmod +x $HA_DIR"1-live-deploy.sh"
+
+echo "[INFO] Build nativeHA CRR Recovery script 2."
+( echo 'cat <<EOF' ; cat template/2-recovery-deploy.sh_template ; echo EOF ) | sh > $HA_DIR"2-recovery-deploy.sh"
+
+chmod +x $HA_DIR"2-recovery-deploy.sh"
+
+echo "[INFO] Build nativeHA CRR Live Enable script 3."
+( echo 'cat <<EOF' ; cat template/3-live-enable-deploy.sh_template ; echo EOF ) | sh > $HA_DIR"3-live-enable-crr.sh"
+
+chmod +x $HA_DIR"3-live-enable-crr.sh"
+
+echo "[INFO] Build nativeHA CRR Recovery Enable script 4."
+( echo 'cat <<EOF' ; cat template/4-recovery-enable-deploy.sh_template ; echo EOF ) | sh > $HA_DIR"4-recovery-enable-crr.sh"
+
+chmod +x $HA_DIR"4-recovery-enable-crr.sh"
+
+echo "[INFO] Build nativeHA CRR Switch Role script 5."
+( echo 'cat <<EOF' ; cat template/5-switch-roles.sh_template ; echo EOF ) | sh > $HA_DIR"5-switch-roles.sh"
+
+chmod +x $HA_DIR"5-switch-roles.sh"
+
+exit 
+
+echo "[INFO] nativeHA CRR build yaml script is complete."
+#
+# Build the nativeHA CRR build yaml script.
+#
+echo "...."
+echo "[INFO] Build the ${bold}deployment yamls and test scripts for navtiveHA CRR labs. ${normal} "
 
 export QMname="mq"$STUDENT_NUM"ha"
-export QMInstance=$TARGET_NAMESPACE"-"$QMname
+export QMInstance=$QMGR_NS$QMname
 export CHANNEL="mq"$STUDENT_NUM"hachl"
 export CHLCAPS="MQ"$STUDENT_NUM"HACHL"
-export HA_DIR="nativeha/deploy/"
+export HA_DIR="nativeha-crr/deploy/"
 
-( echo 'cat <<EOF' ; cat template/nativeha-install.sh_template ; echo EOF ) | sh > $HA_DIR"ha-install.sh"
+( echo 'cat <<EOF' ; cat template/recovery-install.sh_template ; echo EOF ) | sh > $HA_DIR"recovery-install.sh"
 
-chmod +x $HA_DIR"ha-install.sh"
+chmod +x $HA_DIR"recovery-install.sh"
 
-echo "[INFO] nativeHA build yaml script is complete."
+echo "[INFO] nativeHA CRR build yaml script is complete."
 #
 # Build the UniCluster build yaml scripts.
 #
 echo "...."
 echo "[INFO] Build the ${bold}deployment yamls and test scripts for unicluster labs. ${normal} "
 
-export QMInstancea=$TARGET_NAMESPACE"-mq"$STUDENT_NUM"a"
+export QMInstancea=$QMGR_NS"mq"$STUDENT_NUM"a"
 export QMnamea="mq"$STUDENT_NUM"a"
 export CONNAMEa=$NS"-mq"$STUDENT_NUM"a-ibm-mq"
 export SERVICEa="mq"$STUDENT_NUM"a-ibm-mq"
 export CHANNELa="mq"$STUDENT_NUM"chla"
 export TOCLUSa="TO_UNICLUS_mq"$STUDENT_NUM"a"
 
-export QMInstanceb=$TARGET_NAMESPACE"-mq"$STUDENT_NUM"b"
+export QMInstanceb=$QMGR_NS"mq"$STUDENT_NUM"b"
 export QMnameb="mq"$STUDENT_NUM"b"
 export CONNAMEb=$NS"-mq"$STUDENT_NUM"b-ibm-mq"
 export SERVICEb="mq"$STUDENT_NUM"b-ibm-mq"
 export CHANNELb="mq"$STUDENT_NUM"chlb"
 export TOCLUSb="TO_UNICLUS_mq"$STUDENT_NUM"b"
 
-export QMInstancec=$TARGET_NAMESPACE"-mq"$STUDENT_NUM"c"
+export QMInstancec=$QMGR_NS"mq"$STUDENT_NUM"c"
 export QMnamec="mq"$STUDENT_NUM"c"
 export CONNAMEc=$NS"-mq"$STUDENT_NUM"c-ibm-mq"
 export SERVICEc="mq"$STUDENT_NUM"c-ibm-mq"

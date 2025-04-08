@@ -116,7 +116,7 @@ export CHANNEL="mq"$STUDENT_NUM"hachl"
 export ROUTE=$QMGR_NS"mq"$STUDENT_NUM"ha-nativehachl-ibm-mq-qm"
 export CHLCAPS="MQ"$STUDENT_NUM"HACHL"
 export HA_DIR="nativeha-crr/deploy/"
-###./0-generate-certificates.sh $QMname > /dev/null 2>&1
+./0-generate-certificates.sh $QMname > /dev/null 2>&1
 echo "[INFO] Build nativeHA CRR Live script 1"
 ( echo 'cat <<EOF' ; cat template/1-live-deploy.sh_template ; echo EOF ) | sh > $HA_DIR"1-live-deploy.sh"
 
@@ -141,8 +141,6 @@ echo "[INFO] Build nativeHA CRR Switch Role script 5."
 ( echo 'cat <<EOF' ; cat template/5-switch-roles.sh_template ; echo EOF ) | sh > $HA_DIR"5-switch-roles.sh"
 
 chmod +x $HA_DIR"5-switch-roles.sh"
-
-exit 
 
 echo "[INFO] nativeHA CRR build yaml script is complete."
 #

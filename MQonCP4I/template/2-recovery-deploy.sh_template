@@ -1,12 +1,11 @@
 #! /bin/bash
-#Use storage class ibmc-file-gold-gid when running on ROKS clusters
-#Use storage class managed-nfs-storage when running on CoC PoT clusters
-#mq00 reserved for instructor
-
+##
+# This template will generated the variables needed for the recovery nativeha CRR deploy script
+#
 source ../../setup.properties
 
 #oc login https://api.67c20883d1ee7bb0b5beada0.am1.techzone.ibm.com:6443 -u student8 -p welcometoFSMpot
-oc login $OCP_CLUSTER2 -u $OCP_CLUSTER_USER -p $OCP_CLUSTER_PASSWORD
+oc login $OCP_CLUSTER2 -u $OCP_CLUSTER_USER -p $OCP_CLUSTER_PASSWORD > /dev/null 2>&1
 
 oc project $TARGET_NAMESPACE
 export HA_DIR_DEPLOY="nativeha-crr/deploy"
@@ -28,7 +27,7 @@ export CA_CERT=$(cat nativeha-crr/deploy/certs/${QMname}-ca.crt | base64 | tr -d
 
 ( echo "cat <<EOF" ; cat 2-recovery-template.yaml ; echo EOF ) | sh > 2-recovery.yaml
 
-##oc apply -f 2-recovery.yaml -n $TARGET_NAMESPACE
+oc apply -f 2-recovery.yaml -n $TARGET_NAMESPACE
 
 # create kdb file
 rm ../test/key.*

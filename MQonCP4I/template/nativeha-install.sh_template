@@ -13,18 +13,12 @@ export SC=$SC
 #export SC=ibmc-file-gold-gid
 export VERSION=$VERSION
 export LICENSE=$LICENSE
-
-export QM_KEY=$(cat mtls/nativeha.key | base64 | tr -d '\n')
-export QM_CERT=$(cat mtls/nativeha.crt | base64 | tr -d '\n')
-export CA_CERT=$(cat mtls/ca.crt | base64 | tr -d '\n')
+set -x 
+export QM_KEY=$(cat tls/server.key | base64 | tr -d '\n')
+export QM_CERT=$(cat tls/server.crt | base64 | tr -d '\n')
+##export CA_CERT=$(cat tls/ca.crt | base64 | tr -d '\n')
 
 ( echo "cat <<EOF" ; cat nativeha.yaml_template ; echo EOF ) | sh > nativeha.yaml
 
 oc apply -f nativeha.yaml -n $TARGET_NAMESPACE
-
-# create kdb file
-rm ../test/key.*
-runmqakm -keydb -create -db ../test/key.kdb -type cms -pw passw0rd -stash
-runmqakm -cert -add -db ../test/key.kdb -pw passw0rd -label ca -file ../../mtls/ca.crt
-runmqakm -cert -add -db ../test/key.kdb -pw passw0rd -label nativeha -file ../../mtls/nativeha.crt
 

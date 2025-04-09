@@ -1,8 +1,7 @@
 #! /bin/bash
-#Use storage class ibmc-file-gold-gid when running on ROKS clusters
-#Use storage class managed-nfs-storage when running on CoC PoT clusters
-#mq00 reserved for instructor
-
+#
+# provide needed variables to pass to the switch patch script to switch roles
+#
 source ../../setup.properties
 set -x
 oc project $TARGET_NAMESPACE
@@ -14,4 +13,4 @@ export QMname=$QMname
 
 ( echo "cat <<EOF" ; cat 5-switch-roles-template.yaml ; echo EOF ) | sh > 5-switch-roles.yaml
 
-./5-switch-patch.sh $QMInstance $TARGET_NAMESPACE
+./scripts/5-switch-patch.sh $QMInstance $TARGET_NAMESPACE

@@ -105,8 +105,22 @@ export STREAMQ_DIR="streamq/deploy/"
 chmod +x $STREAMQ_DIR"strm-install.sh"
 
 echo "[INFO] StreamQ build yaml script is complete."
+echo "...."
+echo "[INFO] Build the ${bold}deployment yamls and test scripts for navtiveHA labs. ${normal} "
+
+export QMname="mq"$STUDENT_NUM"ha"
+export QMInstance=$QMGR_NS$QMname
+export CHANNEL="mq"$STUDENT_NUM"hachl"
+export CHLCAPS="MQ"$STUDENT_NUM"HACHL"
+export HA_DIR="nativeha/deploy/"
+
+( echo 'cat <<EOF' ; cat template/nativeha-install.sh_template ; echo EOF ) | sh > $HA_DIR"nativeha-install.sh"
+
+chmod +x $HA_DIR"nativeha-install.sh"
+
+echo "[INFO] nativeHA build yaml script is complete."
 #
-# Build the nativeHA build yaml script.
+# Build the nativeHA-crr build yaml script.
 #
 echo "...."
 echo "[INFO] Build the ${bold}deployment yamls and test scripts for navtiveHA CRR labs. ${normal} "
@@ -116,6 +130,7 @@ export CHANNEL="mq"$STUDENT_NUM"hachl"
 export ROUTE=$QMGR_NS"mq"$STUDENT_NUM"ha-nativehachl-ibm-mq-qm"
 export CHLCAPS="MQ"$STUDENT_NUM"HACHL"
 export HA_DIR="nativeha-crr/deploy/"
+export HA_TEST_DIR="nativeha-crr/test/"
 ./0-generate-certificates.sh $QMname > /dev/null 2>&1
 echo "[INFO] Build nativeHA CRR Live script 1"
 ( echo 'cat <<EOF' ; cat template/1-live-deploy.sh_template ; echo EOF ) | sh > $HA_DIR"1-live-deploy.sh"
@@ -155,9 +170,9 @@ export CHANNEL="mq"$STUDENT_NUM"hachl"
 export CHLCAPS="MQ"$STUDENT_NUM"HACHL"
 export HA_DIR="nativeha-crr/deploy/"
 
-( echo 'cat <<EOF' ; cat template/recovery-install.sh_template ; echo EOF ) | sh > $HA_DIR"recovery-install.sh"
+( echo 'cat <<EOF' ; cat template/recovery-install.sh_template ; echo EOF ) | sh > $HA_TEST_DIR"recovery-install.sh"
 
-chmod +x $HA_DIR"recovery-install.sh"
+chmod +x $HA_TEST_DIR"recovery-install.sh"
 
 echo "[INFO] nativeHA CRR build yaml script is complete."
 #
@@ -194,7 +209,3 @@ export UNICLUSTER_DIR="unicluster/deploy/"
 chmod +x $UNICLUSTER_DIR"uni-install.sh"
 
 echo "[INFO] unicluster build yaml scripts is complete."
-
-
-
-

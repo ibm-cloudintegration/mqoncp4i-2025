@@ -1,27 +1,21 @@
 #! /bin/bash
-#Use storage class ibmc-file-gold-gid when running on ROKS clusters
-#Use storage class managed-nfs-storage when running on CoC PoT clusters
-#mq00 reserved for instructor
-
+##
+# This template will get the host for Live cluster to enable the nativeha CRR deploy script
+#
 source ../../setup.properties
-
-#oc login https://api.67c20883d1ee7bb0b5beada0.am1.techzone.ibm.com:6443 -u student8 -p welcometoFSMpot
-oc login $OCP_CLUSTER2 -u $OCP_CLUSTER_USER -p $OCP_CLUSTER_PASSWORD
-
 oc project $TARGET_NAMESPACE
 export HA_DIR_DEPLOY="nativeha-crr/deploy"
 export TARGET_NAMESPACE=$TARGET_NAMESPACE
 export QMInstance=$QMInstance
 export QMpre=$QMpre
 export QMname=$QMname
-export HOST=$(oc get route $TARGET_NAMESPACE-$QMname-ibm-mq-nhacrr -o jsonpath='{.spec.host}')
-echo $HOST
+
 
 
 # Logon to the active cluster
 #oc login https://api.67c20883d1ee7bb0b5beada0.am1.techzone.ibm.com:6443 -u student8 -p welcometoFSMpot
-oc login ${OCP_CLUSTER1} -u ${OCP_CLUSTER_USER} -p ${OCP_CLUSTER_PASSWORD}
+oc login ${OCP_CLUSTER2} -u ${OCP_CLUSTER_USER} -p ${OCP_CLUSTER_PASSWORD}
 
 ( echo "cat <<EOF" ; cat 3-live-enable-crr-template.yaml ; echo EOF ) | sh > 3-live-enable-crr.yaml
 
-./3-live-enable-patch.sh $TARGET_NAMESPACE-$QMname
+./scripts/3-live-enable-patch.sh $TARGET_NAMESPACE-$QMname

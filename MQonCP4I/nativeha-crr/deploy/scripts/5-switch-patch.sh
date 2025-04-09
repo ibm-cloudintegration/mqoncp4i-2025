@@ -1,14 +1,13 @@
 #! /bin/bash
-#Use storage class ibmc-file-gold-gid when running on ROKS clusters
-#Use storage class managed-nfs-storage when running on CoC PoT clusters
-#mq00 reserved for instructor
-
+#
+# This script will check the Role of each cluster and then switch them for controlled failover 
+#
 source ../../setup.properties
 
 export HA_DIR_DEPLOY="nativeha-crr/deploy"
 export TARGET_NAMESPACE=$2
 export QMname=$1
-oc project $TARGET_NAMESPACE
+##oc project $TARGET_NAMESPACE
 ####
 ##    NOTE:  Make sure to logon to the recovery openshift cluster
 ####
@@ -25,9 +24,9 @@ else
    export ROLE="Recovery"
 fi   
 ( echo "cat <<EOF" ; cat 5-switch-roles-template.yaml ; echo EOF ) | sh > 5-switch-roles.yaml
-
+echo "switch cluster 1"
 echo "Switching Role on Cluster 1 from " $CURRENT_ROLE to $ROLE
-./5-live-switch-patch.sh $QMname
+./scripts/5-live-switch-patch.sh $QMname
 
 echo ""
 # Logon to the Recovery cluster
@@ -43,8 +42,8 @@ else
    export ROLE="Recovery"
 fi   
 ( echo "cat <<EOF" ; cat 5-switch-roles-template.yaml ; echo EOF ) | sh > 5-switch-roles.yaml
-
+echo "switch cluster 2"
 echo "Switching Role on Cluster 2 from " $CURRENT_ROLE to $ROLE
 
-./5-recovery-switch-patch.sh $QMname
+./scripts/5-recovery-switch-patch.sh $QMname
 echo "done."

@@ -1,0 +1,77 @@
+{
+    "channel": 
+    [
+        {
+            "name": "MQ01CHLA" ,
+            "clientConnection": 
+            {
+                "connection": 
+                [
+                    {
+                        "host": "mq01a-ibm-mq-qm-cp4i-mq.apps.68040342d392491c0292283b.am1.techzone.ibm.com" ,
+                        "port": 443
+                    }
+                ],
+                "queueManager": "*ANY_QM"
+            },
+           "connectionManagement":
+            {
+              "clientWeight": 1,
+              "affinity": "none"
+            },
+            "transmissionSecurity":
+            {
+              "cipherSpecification": "ANY_TLS12_OR_HIGHER"
+            },
+            "type": "clientConnection"
+        },
+        {
+            "name": "MQ01CHLB",
+            "clientConnection": 
+            {
+                "connection": 
+                [
+                    {
+                        "host": "mq01b-ibm-mq-qm-cp4i-mq.apps.68040342d392491c0292283b.am1.techzone.ibm.com" ,
+                        "port": 443
+                    }
+                ],
+                "queueManager": "*ANY_QM"
+            },
+           "connectionManagement":
+            {
+              "clientWeight": 1,
+              "affinity": "none"
+            },
+            "transmissionSecurity":
+            {
+              "cipherSpecification": "ANY_TLS12_OR_HIGHER"
+            },
+            "type": "clientConnection"
+        },
+        {
+            "name": "MQ01CHLC",
+            "clientConnection": 
+            {
+                "connection": 
+                [
+                    {
+                        "host": "mq01c-ibm-mq-qm-cp4i-mq.apps.68040342d392491c0292283b.am1.techzone.ibm.com",
+                        "port": 443
+                    }
+                ],
+                "queueManager": "*ANY_QM"
+            },
+            "connectionManagement":
+             {
+              "clientWeight": 1,
+              "affinity": "none"
+             },
+            "transmissionSecurity":
+            {
+              "cipherSpecification": "ANY_TLS12_OR_HIGHER"
+            },
+            "type": "clientConnection"
+        }   
+   ]
+}

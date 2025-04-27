@@ -1,0 +1,77 @@
+{
+    "channel": 
+    [
+        {
+            "name": "$CHANNELA" ,
+            "clientConnection": 
+            {
+                "connection": 
+                [
+                    {
+                        "host": "$HOSTa" ,
+                        "port": 443
+                    }
+                ],
+                "queueManager": "*ANY_QM"
+            },
+           "connectionManagement":
+            {
+              "clientWeight": 1,
+              "affinity": "none"
+            },
+            "transmissionSecurity":
+            {
+              "cipherSpecification": "ANY_TLS12_OR_HIGHER"
+            },
+            "type": "clientConnection"
+        },
+        {
+            "name": "$CHANNELB",
+            "clientConnection": 
+            {
+                "connection": 
+                [
+                    {
+                        "host": "$HOSTb" ,
+                        "port": 443
+                    }
+                ],
+                "queueManager": "*ANY_QM"
+            },
+           "connectionManagement":
+            {
+              "clientWeight": 1,
+              "affinity": "none"
+            },
+            "transmissionSecurity":
+            {
+              "cipherSpecification": "ANY_TLS12_OR_HIGHER"
+            },
+            "type": "clientConnection"
+        },
+        {
+            "name": "$CHANNELC",
+            "clientConnection": 
+            {
+                "connection": 
+                [
+                    {
+                        "host": "$HOSTc",
+                        "port": 443
+                    }
+                ],
+                "queueManager": "*ANY_QM"
+            },
+            "connectionManagement":
+             {
+              "clientWeight": 1,
+              "affinity": "none"
+             },
+            "transmissionSecurity":
+            {
+              "cipherSpecification": "ANY_TLS12_OR_HIGHER"
+            },
+            "type": "clientConnection"
+        }   
+   ]
+}

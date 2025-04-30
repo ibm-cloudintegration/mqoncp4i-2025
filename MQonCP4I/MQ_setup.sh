@@ -114,9 +114,9 @@ export CHANNEL="mq"$STUDENT_NUM"hachl"
 export CHLCAPS="MQ"$STUDENT_NUM"HACHL"
 export HA_DIR="nativeha/deploy/"
 
-( echo 'cat <<EOF' ; cat template/nativeha-install.sh_template ; echo EOF ) | sh > $HA_DIR"nativeha-install.sh"
+( echo 'cat <<EOF' ; cat template/nativeha-install.sh_template ; echo EOF ) | sh > $HA_DIR"ha-install.sh"
 
-chmod +x $HA_DIR"nativeha-install.sh"
+chmod +x $HA_DIR"ha-install.sh"
 
 echo "[INFO] nativeHA build yaml script is complete."
 #

@@ -22,3 +22,4 @@ export QM_CERT=$(cat ../tls/server.crt | base64 | tr -d '\n')
 
 oc apply -f nativeha.yaml -n $TARGET_NAMESPACE
 
+pwd

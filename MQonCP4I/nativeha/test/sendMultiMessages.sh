@@ -12,7 +12,7 @@ export QMname=mq00ha
 export CHLCAPS=MQ00HACHL
 export APPQ=APPQ
 
-export HOST="$(oc get route $QMname-ibm-mq-qm -n $TARGET_NAMESPACE -o jsonpath='{.spec.host}')"
+export HOST="$(oc get route $TARGET_NAMESPACE-$QMname-ibm-mq-qm -n $TARGET_NAMESPACE -o jsonpath='{.spec.host}')"
 ( echo "cat <<EOF" ; cat ccdt_template.json ; echo EOF ) | sh > ccdt_generated.json
 
 for (( i=0; i<$1; ++i)); do

@@ -3,7 +3,7 @@
 # provide needed variables to pass to the switch patch script to switch roles
 #
 source ../../setup.properties
-set -x
+
 oc project $TARGET_NAMESPACE
 export HA_DIR_DEPLOY="nativeha-crr/deploy"
 export TARGET_NAMESPACE=$TARGET_NAMESPACE

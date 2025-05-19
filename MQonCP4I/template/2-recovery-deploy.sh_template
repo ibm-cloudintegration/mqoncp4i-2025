@@ -17,6 +17,7 @@ export ROUTE=$ROUTE
 export CHLCAPS=$CHLCAPS
 export CHANNEL=$CHANNEL
 export SC=$SC
+export VERSION=$VERSION
 export LICENSE=$LICENSE
 
 export QM_KEY=$(cat nativeha-crr/deploy/certs/${QMname}.key | base64 | tr -d '\n')

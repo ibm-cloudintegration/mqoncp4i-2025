@@ -8,6 +8,7 @@ export QMInstance=$1
 
 # Logon to the Recovery cluster to get the HOST name 
 #oc login https://api.67c20883d1ee7bb0b5beada0.am1.techzone.ibm.com:6443 -u student8 -p welcometoFSMpot
+echo "Logging into Cluster 2 to get recovery HOST Name"
 oc login $OCP_CLUSTER2 -u $OCP_CLUSTER_USER2 -p $OCP_CLUSTER_PASSWORD2 > /dev/null 2>&1
 
 export HOST=$(oc get route $QMInstance-ibm-mq-nhacrr -o jsonpath='{.spec.host}')

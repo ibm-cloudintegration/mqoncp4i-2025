@@ -84,6 +84,10 @@ export LICENSE=$IBM_MQ_LICENSE
 export MQ_NATIVEHA_HOST=$OCP_CLUSTER1
 export MQ_RECOVERY_HOST=$RECV_HOST
 
+echo "[INFO] Update setup.properties with your student number"
+( echo 'cat <<EOF' ; cat setup.properties_template ; echo EOF ) | sh > setup.properties
+echo ""
+
 export OCP_CLUSTER1=$OCP_CLUSTER1
 export OCP_CLUSTER_USER1=$OCP_CLUSTER_USER1
 export OCP_CLUSTER_PASSWORD1=$OCP_CLUSTER_PASSWORD1
@@ -128,9 +132,7 @@ export HA_TEST_DIR="nativeha-crr/test/"
 # 
 echo "[INFO] Create the tls certs for nativeha CRR"
 ./0-generate-certificates.sh $QMname > /dev/null 2>&1
-echo "[INFO] Update setup.properties with your student number"
-( echo 'cat <<EOF' ; cat setup.properties_template ; echo EOF ) | sh > setup.properties
-echo ""
+
 echo "[INFO] Build nativeHA CRR Live script 1"
 ( echo 'cat <<EOF' ; cat template/1-live-deploy.sh_template ; echo EOF ) | sh > $HA_DIR"1-live-deploy.sh"
 

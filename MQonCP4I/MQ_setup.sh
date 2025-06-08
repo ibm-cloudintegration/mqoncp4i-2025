@@ -158,23 +158,6 @@ chmod +x $HA_DIR"5-switch-roles.sh"
 
 echo "[INFO] nativeHA CRR build yaml script is complete."
 #
-# Build the nativeHA CRR build yaml script.
-#
-echo "...."
-echo "[INFO] Build the ${bold}deployment yamls and test scripts for navtiveHA CRR labs. ${normal} "
-
-export QMname="mq"$STUDENT_NUM"ha"
-export QMInstance=$QMGR_NS$QMname
-export CHANNEL="mq"$STUDENT_NUM"hachl"
-export CHLCAPS="MQ"$STUDENT_NUM"HACHL"
-export HA_DIR="nativeha-crr/deploy/"
-
-( echo 'cat <<EOF' ; cat template/recovery-install.sh_template ; echo EOF ) | sh > $HA_TEST_DIR"recovery-install.sh"
-
-chmod +x $HA_TEST_DIR"recovery-install.sh"
-
-echo "[INFO] nativeHA CRR build yaml script is complete."
-#
 # Build the UniCluster build yaml scripts.
 #
 echo "...."

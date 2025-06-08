@@ -84,7 +84,7 @@ export LICENSE=$IBM_MQ_LICENSE
 export MQ_NATIVEHA_HOST=$OCP_CLUSTER1
 export MQ_RECOVERY_HOST=$RECV_HOST
 
-echo "[INFO] Update setup.properties with your student number"
+echo "[INFO] Update ${bold}setup.properties${normal} with your student number"
 ( echo 'cat <<EOF' ; cat setup.properties_template ; echo EOF ) | sh > setup.properties
 echo ""
 

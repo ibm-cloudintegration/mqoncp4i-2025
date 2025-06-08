@@ -62,6 +62,15 @@ echo " You have set the Namespace to $NS and the instance number to $STUDENT_NUM
    esac
  done
 #
+# Update the setup properties
+#
+ echo "[INFO] Update ${bold}setup.properties${normal} with your student number"
+./set_properties.sh $NS
+#
+# Set script variables
+#
+source setup.properties
+#
 # Set all common variables
 #
 export IBM_MQ_LICENSE=$IBM_MQ_LICENSE
@@ -83,10 +92,6 @@ export VERSION=$IBM_MQ_VERSION
 export LICENSE=$IBM_MQ_LICENSE
 export MQ_NATIVEHA_HOST=$OCP_CLUSTER1
 export MQ_RECOVERY_HOST=$RECV_HOST
-
-echo "[INFO] Update ${bold}setup.properties${normal} with your student number"
-set_properties.sh $TARGET_NAMESPACE
-echo ""
 #
 # Build the StreamQ build yaml script.
 #

@@ -11,12 +11,12 @@ STORAGE_CLASS=ocs-storagecluster-ceph-rbd
 # Cluster 1 login info
 #
 OCP_CLUSTER1=https://api.6810c0b40acb90ebd1e57b48.am1.techzone.ibm.com:6443
-OCP_CLUSTER_USER1=$QMGR_NS
+OCP_CLUSTER_USER1=$TARGET_NAMESPACE
 OCP_CLUSTER_PASSWORD1=welcometoaugustpot
 #
 # Cluster 2 login info
 # This is only needed if doing MQ CRR
 #
 OCP_CLUSTER2=https://api.6810df9bfee848c5908c2e63.am1.techzone.ibm.com:6443
-OCP_CLUSTER_USER2=$QMGR_NS
+OCP_CLUSTER_USER2=$TARGET_NAMESPACE
 OCP_CLUSTER_PASSWORD2=welcometopot

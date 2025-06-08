@@ -10,12 +10,13 @@ export QMInstance=$1
 
 # Logon to the active cluster
 #oc login https://api.67c20883d1ee7bb0b5beada0.am1.techzone.ibm.com:6443 -u student8 -p welcometoFSMpot
-oc login $OCP_CLUSTER1 -u $OCP_CLUSTER_USER -p $OCP_CLUSTER_PASSWORD > /dev/null 2>&1
+echo "Logging into Cluster 1 to get Live HOST Name"
+oc login $OCP_CLUSTER1 -u $OCP_CLUSTER_USER1 -p $OCP_CLUSTER_PASSWORD1 > /dev/null 2>&1
 
 export HOST=$(oc get route $QMInstance-ibm-mq-nhacrr -o jsonpath='{.spec.host}')
  
 ( echo "cat <<EOF" ; cat 4-recovery-enable-crr-template.yaml ; echo EOF ) | sh > 4-recovery-enable-crr.yaml
 
-oc login $OCP_CLUSTER2 -u $OCP_CLUSTER_USER -p $OCP_CLUSTER_PASSWORD > /dev/null 2>&1
+oc login $OCP_CLUSTER2 -u $OCP_CLUSTER_USER2 -p $OCP_CLUSTER_PASSWORD2 > /dev/null 2>&1
 
 oc patch QueueManager $QMInstance --type merge --patch "$(cat 4-recovery-enable-crr.yaml)"

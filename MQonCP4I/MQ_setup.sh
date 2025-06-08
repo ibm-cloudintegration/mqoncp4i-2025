@@ -85,7 +85,7 @@ export MQ_NATIVEHA_HOST=$OCP_CLUSTER1
 export MQ_RECOVERY_HOST=$RECV_HOST
 
 echo "[INFO] Update ${bold}setup.properties${normal} with your student number"
-setup_properties.sh $TARGET_NAMESPACE
+set_properties.sh $TARGET_NAMESPACE
 echo ""
 #
 # Build the StreamQ build yaml script.

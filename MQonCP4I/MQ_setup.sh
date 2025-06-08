@@ -87,14 +87,6 @@ export MQ_RECOVERY_HOST=$RECV_HOST
 echo "[INFO] Update ${bold}setup.properties${normal} with your student number"
 ( echo 'cat <<EOF' ; cat setup.properties_template ; echo EOF ) | sh > setup.properties
 echo ""
-
-export OCP_CLUSTER1=$OCP_CLUSTER1
-export OCP_CLUSTER_USER1=$OCP_CLUSTER_USER1
-export OCP_CLUSTER_PASSWORD1=$OCP_CLUSTER_PASSWORD1
-#
-export OCP_CLUSTER2=$OCP_CLUSTER2
-export OCP_CLUSTER_USER2=$OCP_CLUSTER_USER2
-export OCP_CLUSTER_PASSWORD2=$OCP_CLUSTER_PASSWORD2
 #
 # Build the StreamQ build yaml script.
 #
@@ -120,6 +112,15 @@ echo "...."
 #
 echo "...."
 echo "[INFO] Build the ${bold}deployment yamls and test scripts for navtiveHA CRR labs. ${normal} "
+
+export OCP_CLUSTER1=$OCP_CLUSTER1
+export OCP_CLUSTER_USER1=$OCP_CLUSTER_USER1
+export OCP_CLUSTER_PASSWORD1=$OCP_CLUSTER_PASSWORD1
+#
+export OCP_CLUSTER2=$OCP_CLUSTER2
+export OCP_CLUSTER_USER2=$OCP_CLUSTER_USER2
+export OCP_CLUSTER_PASSWORD2=$OCP_CLUSTER_PASSWORD2
+#
 export QMname="mq"$STUDENT_NUM"ha"
 export QMInstance=$QMGR_NS$QMname
 export CHANNEL="mq"$STUDENT_NUM"hachl"

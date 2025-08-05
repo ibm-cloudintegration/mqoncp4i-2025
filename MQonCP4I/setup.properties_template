@@ -10,7 +10,7 @@ STORAGE_CLASS=ocs-storagecluster-ceph-rbd
 #
 # Cluster 1 login info
 #
-OCP_CLUSTER1=https://api.6810c0b40acb90ebd1e57b48.am1.techzone.ibm.com:6443
+OCP_CLUSTER1=https://api.6860979f22ccf67c3fb345a3.am1.techzone.ibm.com:6443
 OCP_CLUSTER_USER1=$TARGET_NAMESPACE
 OCP_CLUSTER_PASSWORD1=welcometoaugustpot
 #

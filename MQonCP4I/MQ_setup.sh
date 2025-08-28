@@ -171,7 +171,8 @@ chmod +x $HA_DIR"5-switch-roles.sh"
 echo "[INFO] nativeHA CRR build yaml script is complete."
 
 echo "[INFO] Build nativeHA CRR Test scripts"
-( echo 'cat <<EOF' ; cat template/getMessage-CRR.sh.sh_template ; echo EOF ) | sh > $HA_TEST_DIR"getMessage-CRR.sh"
+( echo 'cat <<EOF' ; cat template/getMessage-CRR.sh_template ; echo EOF ) | sh > $HA_TEST_DIR"getMessage-CRR.sh"
+( echo 'cat <<EOF' ; cat template/sendMessage-CRR.sh_template ; echo EOF ) | sh > $HA_TEST_DIR"sendMessage-CRR.sh"
 
 #
 # Build the UniCluster build yaml scripts.

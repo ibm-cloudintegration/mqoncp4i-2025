@@ -13,10 +13,11 @@ if [[ -z "${TARGET_NAMESPACE// /}" ]]; then
   exit 1
 fi
 
-oc login ${OCP_CLUSTER2} -u ${OCP_CLUSTER_USER} -p ${OCP_CLUSTER_PASSWORD}
+oc login ${OCP_CLUSTER2} -u ${OCP_CLUSTER_USER2} -p ${OCP_CLUSTER_PASSWORD2}
 oc project ${TARGET_NAMESPACE}
 oc delete queuemanager ${TARGET_NAMESPACE}-$QMname 
 oc delete configmap ${QMname}-mqsc
+oc delete route ${QMname}-${QMname}chl-ibm-mq-qm
 #oc delete pv  $(oc get pvc --no-headers | grep ${QMname} | awk '{print$3}')
 oc delete pvc $(oc get pvc --no-headers | grep ${QMname} | awk '{print$1}')
 oc delete secret ${QMname}-qm-tls

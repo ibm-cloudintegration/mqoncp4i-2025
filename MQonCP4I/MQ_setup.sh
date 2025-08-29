@@ -168,6 +168,11 @@ echo "[INFO] Build nativeHA CRR Switch Role script 5."
 
 chmod +x $HA_DIR"5-switch-roles.sh"
 
+echo "[INFO] Build nativeHA CRR Get Role script 6."
+( echo 'cat <<EOF' ; cat template/6-get-roles.sh_template ; echo EOF ) | sh > $HA_DIR"6-get-roles.sh"
+
+chmod +x $HA_DIR"6-get-roles.sh"
+
 echo "[INFO] nativeHA CRR build yaml script is complete."
 
 echo "[INFO] Build nativeHA CRR Test scripts"

@@ -9,4 +9,4 @@ export QMname=$QMname
 export CHLCAPS=$CHLCAPS
 export APPQ="APPQ"
 
-./sendMessage-CRR.sh $TARGET_NAMESPACE $QMpre $QMname $CHLCAPS $APPQ
+./sendMessage-CRR.sh $TARGET_NAMESPACE $QMpre $QMname $CHLCAPS APPQ

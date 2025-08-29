@@ -2,7 +2,7 @@
 #
 # This script will check the Role of each cluster and then switch them for controlled failover 
 #
-source ../../../setup.properties
+source ../../setup.properties
 #
 textreset=$(tput sgr0) # reset the foreground colour
 red=$(tput setaf 1)

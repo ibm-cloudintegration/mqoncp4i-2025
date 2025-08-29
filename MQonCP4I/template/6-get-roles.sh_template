@@ -11,6 +11,4 @@ export QMInstance=$QMInstance
 export QMpre=$QMpre
 export QMname=$QMname
 
-( echo "cat <<EOF" ; cat 6-get-roles.sh_template ; echo EOF ) | sh > 6-get-roles.sh
-
 ./scripts/6-current-roles.sh $QMInstance $TARGET_NAMESPACE

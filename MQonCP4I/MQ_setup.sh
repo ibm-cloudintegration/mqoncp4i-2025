@@ -173,7 +173,7 @@ echo "[INFO] nativeHA CRR build yaml script is complete."
 echo "[INFO] Build nativeHA CRR Test scripts"
 ( echo 'cat <<EOF' ; cat template/getMessage-CRR-setup.sh_template ; echo EOF ) | sh > $HA_TEST_DIR"getMessage-CRR-setup.sh"
 ( echo 'cat <<EOF' ; cat template/sendMessage-CRR-setup.sh_template ; echo EOF ) | sh > $HA_TEST_DIR"sendMessage-CRR-setup.sh"
-chmod +x $HA_DIR"*Message-CRR-setup.sh"
+chmod +x $HA_TEST_DIR"*Message-CRR-setup.sh"
 #
 # Build the UniCluster build yaml scripts.
 #

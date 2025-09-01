@@ -1,14 +1,20 @@
 #!/bin/bash
-
+#
+###############################################################################################
+# Author: Joe Jodl
+# Date Created: 1/25/2025
+# Descripton: This script is used to generated the certificates for each user environment.  
+###############################################################################################
+#
 QMGR_NAME=$1
-
+#
 if [[ -z "${QMGR_NAME// /}" ]]; then
   echo -e "Syntax error: pass arguments, example: $0 mq02ha"
   exit 1
 fi
-
+#
 export HA_DIR="nativeha-crr"
-
+#
 QMGR_NAME_LOWERCASE=${HA_DIR}/deploy/certs/$(echo $QMGR_NAME | tr '[:upper:]' '[:lower:]')
 QMGR_KEY_FILENAME=${HA_DIR}/deploy/certs/${QMGR_NAME}.key
 QMGR_CSR_FILENAME=${HA_DIR}/deploy/certs/${QMGR_NAME}.csr
@@ -17,7 +23,7 @@ QMGR_PKCS_FILENAME=${HA_DIR}/deploy/certs/${QMGR_NAME}.p12
 CA_KEY=${HA_DIR}/deploy/certs/$QMGR_NAME-ca.key
 CA_CRT=${HA_DIR}/deploy/certs/$QMGR_NAME-ca.crt
 PASSWORD=passw0rd
-
+#
 rm $CA_KEY $CA_CRT $QMGR_KEY_FILENAME $QMGR_CSR_FILENAME $QMGR_CERT_FILENAME $QMGR_PKCS_FILENAME ${QMGR_NAME_LOWERCASE}.jks   > /dev/null 2>&1 
 
 # Generate self signed CA

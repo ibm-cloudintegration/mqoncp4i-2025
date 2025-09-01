@@ -1,0 +1,14 @@
+#! /bin/bash
+#
+# provide needed variables to pass to the switch patch script to switch roles
+#
+source ../../setup.properties
+
+
+export HA_DIR_DEPLOY="nativeha-crr/deploy"
+export TARGET_NAMESPACE=$TARGET_NAMESPACE
+export QMInstance=$QMInstance
+export QMpre=$QMpre
+export QMname=$QMname
+
+./scripts/6-current-roles.sh $QMInstance $TARGET_NAMESPACE

@@ -1,13 +1,17 @@
 #! /bin/bash
 #
-#Use storage class ocs-storagecluster-ceph-rbd when running on CoC PoT clusters
-#mq00 reserved for instructor
+###############################################################################################
+# Author: Joe Jodl
+# Date Created: 1/25/2025
+# Descripton: This script is used to setup MQ environment for all POT labs for students 
+# Check storage class before running this script.  
+# mq00 reserved for instructor
+###############################################################################################
+#
 #
 # Set script variables
 #
-source setup.properties
-#
-textreset=$(tput sgr0) # reset the foreground colour
+textreset=$(tput sgr0) # reset the foreground color
 red=$(tput setaf 1)
 green=$(tput setaf 2) 
 yellow=$(tput setaf 3) 
@@ -164,7 +168,17 @@ echo "[INFO] Build nativeHA CRR Switch Role script 5."
 
 chmod +x $HA_DIR"5-switch-roles.sh"
 
+echo "[INFO] Build nativeHA CRR Get Role script 6."
+( echo 'cat <<EOF' ; cat template/6-get-roles.sh_template ; echo EOF ) | sh > $HA_DIR"6-get-roles.sh"
+
+chmod +x $HA_DIR"6-get-roles.sh"
+
 echo "[INFO] nativeHA CRR build yaml script is complete."
+
+echo "[INFO] Build nativeHA CRR Test scripts"
+( echo 'cat <<EOF' ; cat template/getMessage-CRR-setup.sh_template ; echo EOF ) | sh > $HA_TEST_DIR"getMessage-CRR-setup.sh"
+( echo 'cat <<EOF' ; cat template/sendMessage-CRR-setup.sh_template ; echo EOF ) | sh > $HA_TEST_DIR"sendMessage-CRR-setup.sh"
+chmod +x $HA_TEST_DIR*Message-CRR-setup.sh
 #
 # Build the UniCluster build yaml scripts.
 #

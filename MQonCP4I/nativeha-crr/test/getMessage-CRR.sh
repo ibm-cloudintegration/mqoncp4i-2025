@@ -7,11 +7,11 @@ export MQCCDTURL="${DIR}/ccdt_CRR_generated.json"
 export MQSSLKEYR="${DIR}/key"
 export MQCHLLIB="${DIR}"
 export MQCHLTAB="${DIR}/ccdt_CRR_generated.json"
-export TARGET_NAMESPACE=student2
-export QMpre=mq02
-export QMname=mq02ha
-export CHLCAPS=MQ02HACHL
-export APPQ=APPQ
+export TARGET_NAMESPACE=$1
+export QMpre=$2
+export QMname=$3
+export CHLCAPS=$4
+export APPQ=$5
 
 oc login $OCP_CLUSTER1 -u $OCP_CLUSTER_USER1 -p $OCP_CLUSTER_PASSWORD1 > /dev/null 2>&1
 oc project $TARGET_NAMESPACE

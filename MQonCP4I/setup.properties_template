@@ -11,12 +11,12 @@ STORAGE_CLASS=ocs-storagecluster-ceph-rbd
 # Cluster 1 login info
 #
 OCP_CLUSTER1=https://api.xxxxxxxxxxxxxxxxxxxxxxxxx.am1.techzone.ibm.com:6443
-OCP_CLUSTER_USER1=$TARGET_NAMEPACE
+OCP_CLUSTER_USER1=$TARGET_NAMESPACE
 OCP_CLUSTER_PASSWORD1=xxxxxxxxxxxxxxx
 #
 # Cluster 2 login info
 # This is only needed if doing MQ CRR
 #
 OCP_CLUSTER2=https://api.yyyyyyyyyyyyyyyyy.am1.techzone.ibm.com:6443
-OCP_CLUSTER_USER2=$TARGET_NAMEPACE
+OCP_CLUSTER_USER2=$TARGET_NAMESPACE
 OCP_CLUSTER_PASSWORD2=yyyyyyyyyyyy

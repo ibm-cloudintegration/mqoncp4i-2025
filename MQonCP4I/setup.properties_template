@@ -1,5 +1,5 @@
 IBM_MQ_LICENSE=L-CYPF-CRPF3H
-IBM_MQ_VERSION=9.4.3.1-r2
+IBM_MQ_VERSION=9.4.4.0-r3
 #
 STORAGE_CLASS=ocs-storagecluster-ceph-rbd
 ##STORAGE_CLASS=ocs-external-storagecluster-ceph-rbd

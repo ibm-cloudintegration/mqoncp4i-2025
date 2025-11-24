@@ -30,7 +30,7 @@ type: Opaque
 apiVersion: mq.ibm.com/v1beta1
 kind: QueueManager
 metadata:
-  name: $TARGET_NAMESPACE-${QMname}
+  name: $QMInstance
   namespace: $TARGET_NAMESPACE
 spec:
   version: $VERSION

@@ -15,11 +15,11 @@ export APPQ=$5
 
 oc login $OCP_CLUSTER1 -u $OCP_CLUSTER_USER1 -p $OCP_CLUSTER_PASSWORD1 > /dev/null 2>&1
 oc project $TARGET_NAMESPACE
-export HOST1="$(oc get route $TARGET_NAMESPACE-$QMname-ibm-mq-qm -n $TARGET_NAMESPACE -o jsonpath='{.spec.host}')"
+export HOST1="$(oc get route $QMInstance-ibm-mq-qm -n $TARGET_NAMESPACE -o jsonpath='{.spec.host}')"
 
 oc login $OCP_CLUSTER2 -u $OCP_CLUSTER_USER2 -p $OCP_CLUSTER_PASSWORD2 > /dev/null 2>&1
 oc project $TARGET_NAMESPACE
-export HOST2="$(oc get route $TARGET_NAMESPACE-$QMname-ibm-mq-qm -n $TARGET_NAMESPACE -o jsonpath='{.spec.host}')"
+export HOST2="$(oc get route $QMInstance-ibm-mq-qm -n $TARGET_NAMESPACE -o jsonpath='{.spec.host}')"
 
 (echo "cat <<EOF" ; cat ccdt_CRR_template.json ; echo EOF ) | sh > ccdt_CRR_generated.json
 

@@ -174,7 +174,7 @@ echo "[INFO] Build nativeHA CRR Get Role script 6."
 chmod +x $HA_DIR"6-get-roles.sh"
 
 echo "[INFO] nativeHA CRR build yaml script is complete."
-
+export QMInstance=$QMGR_NS$QMname
 echo "[INFO] Build nativeHA CRR Test scripts"
 ( echo 'cat <<EOF' ; cat template/getMessage-CRR-setup.sh_template ; echo EOF ) | sh > $HA_TEST_DIR"getMessage-CRR-setup.sh"
 ( echo 'cat <<EOF' ; cat template/sendMessage-CRR-setup.sh_template ; echo EOF ) | sh > $HA_TEST_DIR"sendMessage-CRR-setup.sh"

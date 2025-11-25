@@ -19,5 +19,5 @@ oc project $TARGET_NAMESPACE
 
 ( echo "cat <<EOF" ; cat 3-live-enable-crr-template.yaml ; echo EOF ) | sh > 3-live-enable-crr.yaml
 
-oc patch QueueManager $TARGET_NAMESPACE-$QMname --type merge --patch "$(cat ${HA_DIR}3-live-enable-crr.yaml)"
+oc patch QueueManager $QMInstance --type merge --patch "$(cat ${HA_DIR}3-live-enable-crr.yaml)"
 

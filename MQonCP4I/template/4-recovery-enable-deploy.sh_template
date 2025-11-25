@@ -17,5 +17,5 @@ oc project $TARGET_NAMESPACE
 
 ( echo "cat <<EOF" ; cat 4-recovery-enable-crr-template.yaml ; echo EOF ) | sh > 4-recovery-enable-crr.yaml
 
-./scripts/4-recovery-enable-patch.sh $TARGET_NAMESPACE-$QMname
+./scripts/4-recovery-enable-patch.sh $QMInstance
 

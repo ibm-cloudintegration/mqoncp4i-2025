@@ -19,4 +19,4 @@ oc project $TARGET_NAMESPACE
 
 ( echo "cat <<EOF" ; cat 3-live-enable-crr-template.yaml ; echo EOF ) | sh > 3-live-enable-crr.yaml
 
-./scripts/3-live-enable-patch.sh $TARGET_NAMESPACE-$QMname
+./scripts/3-live-enable-patch.sh $QMInstance

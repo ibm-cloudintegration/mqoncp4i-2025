@@ -17,5 +17,5 @@ export QMname=$QMname
 oc login ${OCP_CLUSTER2} -u ${OCP_CLUSTER_USER2} -p ${OCP_CLUSTER_PASSWORD2}
 oc project $TARGET_NAMESPACE
 
-oc patch QueueManager $TARGET_NAMESPACE-$QMname --type merge --patch "$(cat ${HA_DIR}3-live-enable-crr.yaml)"
+oc patch QueueManager $QMInstance --type merge --patch "$(cat ${HA_DIR}3-live-enable-crr.yaml)"
 

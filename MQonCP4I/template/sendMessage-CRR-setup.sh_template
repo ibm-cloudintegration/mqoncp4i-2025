@@ -4,9 +4,9 @@ source ../../setup.properties
 #
 export HA_DIR_TEST="nativeha-crr/test"
 export TARGET_NAMESPACE=$TARGET_NAMESPACE
-export QMpre=$QMpre
+export QMInstance=$QMInstance
 export QMname=$QMname
 export CHLCAPS=$CHLCAPS
 export APPQ="APPQ"
 
-./sendMessage-CRR.sh $TARGET_NAMESPACE $QMpre $QMname $CHLCAPS APPQ
+./sendMessage-CRR.sh $TARGET_NAMESPACE $QMInstance $QMname $CHLCAPS APPQ

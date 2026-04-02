@@ -9,4 +9,32 @@ export QMname=$QMname
 export CHLCAPS=$CHLCAPS
 export APPQ="APPQ"
 
-./getMessage-CRR.sh $TARGET_NAMESPACE $QMInstance $QMname $CHLCAPS APPQ
+##./getMessage-CRR.sh $TARGET_NAMESPACE $QMInstance $QMname $CHLCAPS APPQ
+
+gnome-terminal \
+  --title="Getter" \
+  --geometry=50x30+100+100 \
+  -- bash -c '
+    # Set window title
+    echo -e "\e[1mGetter\e[0m"
+
+    # Simulated colors
+    BG="\e[40m"      # black
+    FG="\e[92m"      # bright green
+    RESET="\e[0m"
+
+    # Force colors continuously
+    export PROMPT_COMMAND="echo -ne \"${BG}${FG}\""
+
+    # Initial paint
+    echo -e "${BG}${FG}"
+    clear
+    echo "Starting Putter..."
+
+    ./sendMessage-CRR.sh $TARGET_NAMESPACE $QMInstance $QMname $CHLCAPS APPQ
+
+    # Reassert after script
+    echo -e "${BG}${FG}"
+
+    exec bash
+  '

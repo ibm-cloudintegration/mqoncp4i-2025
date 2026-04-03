@@ -29,9 +29,9 @@ gnome-terminal \
     # Initial paint
     echo -e "${BG}${FG}"
     clear
-    echo "Starting Putter..."
+    echo "Starting Getter..."
 
-    ./sendMessage-CRR.sh $TARGET_NAMESPACE $QMInstance $QMname $CHLCAPS APPQ
+   ./getMessage-CRR.sh $TARGET_NAMESPACE $QMInstance $QMname $CHLCAPS APPQ
 
     # Reassert after script
     echo -e "${BG}${FG}"

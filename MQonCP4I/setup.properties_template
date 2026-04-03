@@ -1,8 +1,8 @@
 IBM_MQ_LICENSE=L-CYPF-CRPF3H
 IBM_MQ_VERSION=9.4.4.0-r3
 #
-STORAGE_CLASS=ocs-storagecluster-ceph-rbd
-##STORAGE_CLASS=ocs-external-storagecluster-ceph-rbd
+##STORAGE_CLASS=ocs-storagecluster-ceph-rbd
+STORAGE_CLASS=ocs-external-storagecluster-ceph-rbd
 #
 # nativeha CRR properties
 # Add the URL to login to your clusters.   You will need Cluster1 but if you are doing the CRR will need 2 URLs.
@@ -10,13 +10,13 @@ STORAGE_CLASS=ocs-storagecluster-ceph-rbd
 #
 # Cluster 1 login info
 #
-OCP_CLUSTER1=https://api.xxxxxxxxxxxxxxx.ap1.techzone.ibm.com:6443
+OCP_CLUSTER1=https://api.itz-rcr3gi.infra01-lb.dal14.techzone.ibm.com:6443
 OCP_CLUSTER_USER1=$TARGET_NAMESPACE
 OCP_CLUSTER_PASSWORD1=welcometopot
 #
 # Cluster 2 login info
 # This is only needed if doing MQ CRR
 #
-OCP_CLUSTER2=https://api.yyyyyyyyyyyyyyy.ap1.techzone.ibm.com:6443
+OCP_CLUSTER2=https://api.itz-rz9v1d.infra01-lb.dal14.techzone.ibm.com:6443
 OCP_CLUSTER_USER2=$TARGET_NAMESPACE
 OCP_CLUSTER_PASSWORD2=welcometopot

@@ -13,17 +13,6 @@ export QMname=$3
 export CHLCAPS=$4
 export APPQ=$5
 export STUDENT_NUM=$6
-if [ "$STUDENT_NUM" -lt 11 ]; then
-  {
-    echo "User Primary Cluster 1"
-    export OCP_CLUSTER1=$OCP_CLUSTER1P
-   }
-  else 
-   {
-    echo "User Primary Cluster 1"
-    export OCP_CLUSTER1=$OCP_CLUSTER2P
-   }
-  fi
   
 oc login $OCP_CLUSTER1 -u $OCP_CLUSTER_USER1 -p $OCP_CLUSTER_PASSWORD1 > /dev/null 2>&1
 oc project $TARGET_NAMESPACE

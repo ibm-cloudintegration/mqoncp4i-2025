@@ -69,7 +69,7 @@ echo " You have set the Namespace to $NS and the instance number to $STUDENT_NUM
 # Update the setup properties
 #
  echo "[INFO] Update ${bold}setup.properties${normal} with your student number"
-./set_properties.sh $NS
+./set_properties.sh $NS $STUDENT_NUM
 #
 # Set script variables
 #
@@ -121,20 +121,7 @@ echo "...."
 #
 echo "...."
 echo "[INFO] Build the ${bold}deployment yamls and test scripts for navtiveHA CRR labs. ${normal} "
-#
-# Check to see which primary cluster this student should use.
-#
-if [ $STUDENT_NUM -lt 11 ]; then
-  {
-    echo "User Primary Cluster 1"
-    export OCP_CLUSTER1=$OCP_CLUSTER1P
-   }
-  else 
-   {
-    echo "User Primary Cluster 1"
-    export OCP_CLUSTER1=$OCP_CLUSTER2P
-   }
-  fi
+
 export OCP_CLUSTER1=$OCP_CLUSTER1
 export OCP_CLUSTER_USER1=$OCP_CLUSTER_USER1
 export OCP_CLUSTER_PASSWORD1=$OCP_CLUSTER_PASSWORD1
@@ -176,11 +163,13 @@ echo "[INFO] Build nativeHA CRR Recovery Enable script 4."
 
 chmod +x $HA_DIR"4-recovery-enable-crr.sh"
 
+export STUDENT_NUM=$STUDENT_NUM
 echo "[INFO] Build nativeHA CRR Switch Role script 5."
 ( echo 'cat <<EOF' ; cat template/5-switch-roles.sh_template ; echo EOF ) | sh > $HA_DIR"5-switch-roles.sh"
 
 chmod +x $HA_DIR"5-switch-roles.sh"
 
+export STUDENT_NUM=$STUDENT_NUM
 echo "[INFO] Build nativeHA CRR Get Role script 6."
 ( echo 'cat <<EOF' ; cat template/6-get-roles.sh_template ; echo EOF ) | sh > $HA_DIR"6-get-roles.sh"
 

@@ -8,8 +8,9 @@ export QMInstance=$QMInstance
 export QMname=$QMname
 export CHLCAPS=$CHLCAPS
 export APPQ="APPQ"
+export STUDENT_NUM=$STUDENT_NUM
 
-##./sendMessage-CRR.sh $TARGET_NAMESPACE $QMInstance $QMname $CHLCAPS APPQ
+##./sendMessage-CRR.sh $TARGET_NAMESPACE $QMInstance $QMname $CHLCAPS $APPQ
 
 gnome-terminal \
   --title="Putter" \
@@ -32,7 +33,7 @@ gnome-terminal \
     clear
     echo "Starting Putter..."
 
-   ./sendMessage-CRR.sh $TARGET_NAMESPACE $QMInstance $QMname $CHLCAPS APPQ
+   ./sendMessage-CRR.sh $TARGET_NAMESPACE $QMInstance $QMname $CHLCAPS APPQ $STUDENT_NUM
 
     # Reassert after script
     echo -e "${BG}${FG}"

@@ -8,8 +8,9 @@ export QMInstance=$QMInstance
 export QMname=$QMname
 export CHLCAPS=$CHLCAPS
 export APPQ="APPQ"
+export STUDENT_NUM=$STUDENT_NUM
 
-##./getMessage-CRR.sh $TARGET_NAMESPACE $QMInstance $QMname $CHLCAPS APPQ
+##./getMessage-CRR.sh $TARGET_NAMESPACE $QMInstance $QMname $CHLCAPS APPQ $STUDENT_NUM
 
 gnome-terminal \
   --title="Getter" \
@@ -31,7 +32,7 @@ gnome-terminal \
     clear
     echo "Starting Getter..."
 
-   ./getMessage-CRR.sh $TARGET_NAMESPACE $QMInstance $QMname $CHLCAPS APPQ
+   ./getMessage-CRR.sh $TARGET_NAMESPACE $QMInstance $QMname $CHLCAPS APPQ $STUDENT_NUM
 
     # Reassert after script
     echo -e "${BG}${FG}"

@@ -121,7 +121,20 @@ echo "...."
 #
 echo "...."
 echo "[INFO] Build the ${bold}deployment yamls and test scripts for navtiveHA CRR labs. ${normal} "
-
+#
+# Check to see which primary cluster this student should use.
+#
+if [ $STUDENT_NUM -lt 11 ]; then
+  {
+    echo "User Primary Cluster 1"
+    export OCP_CLUSTER1=$OCP_CLUSTER1P
+   }
+  else 
+   {
+    echo "User Primary Cluster 1"
+    export OCP_CLUSTER1=$OCP_CLUSTER2P
+   }
+  fi
 export OCP_CLUSTER1=$OCP_CLUSTER1
 export OCP_CLUSTER_USER1=$OCP_CLUSTER_USER1
 export OCP_CLUSTER_PASSWORD1=$OCP_CLUSTER_PASSWORD1
@@ -175,6 +188,7 @@ chmod +x $HA_DIR"6-get-roles.sh"
 
 echo "[INFO] nativeHA CRR build yaml script is complete."
 export QMInstance=$QMGR_NS$QMname
+export STUDENT_NUM=$STUDENT_NUM
 echo "[INFO] Build nativeHA CRR Test scripts"
 ( echo 'cat <<EOF' ; cat template/getMessage-CRR-setup.sh_template ; echo EOF ) | sh > $HA_TEST_DIR"getMessage-CRR-setup.sh"
 ( echo 'cat <<EOF' ; cat template/sendMessage-CRR-setup.sh_template ; echo EOF ) | sh > $HA_TEST_DIR"sendMessage-CRR-setup.sh"

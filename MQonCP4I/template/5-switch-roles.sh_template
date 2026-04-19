@@ -10,6 +10,7 @@ export TARGET_NAMESPACE=$TARGET_NAMESPACE
 export QMInstance=$QMInstance
 export QMpre=$QMpre
 export QMname=$QMname
+export STUDENT_NUM=$STUDENT_NUM
 
 # Logon to the active cluster
 #oc login https://api.67c20883d1ee7bb0b5beada0.am1.techzone.ibm.com:6443 -u student8 -p welcometoFSMpot

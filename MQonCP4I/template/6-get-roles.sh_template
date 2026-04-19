@@ -10,5 +10,7 @@ export TARGET_NAMESPACE=$TARGET_NAMESPACE
 export QMInstance=$QMInstance
 export QMpre=$QMpre
 export QMname=$QMname
+export STUDENT_NUM=$STUDENT_NUM
 
-./scripts/6-current-roles.sh $QMInstance $TARGET_NAMESPACE
+
+./scripts/6-current-roles.sh $QMInstance $TARGET_NAMESPACE $STUDENT_NUM

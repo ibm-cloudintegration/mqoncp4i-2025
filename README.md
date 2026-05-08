@@ -2,8 +2,17 @@
 
 ## Working directory for MQ on CP4I PoT
 
-Check the **setup.properties** to make sure you have the correct license and version for MQ 
+1) First thing to do is to check the **set_priperties.sh**
+Make sure that you put your primary cluster URL for cluster 1 (xxxxxxxxxxxxxxxxxxxxxxxx).  
+If you are using 2 Primary clusters due to more the 10 students 
+then add the second primary cluster (yyyyyyyyyyyyyyyyy) 
 
+2) Cluster 2 will be for your CRR cluster.  Enter that url (zzzzzzzzzzzzzzzzz)
+
+3) Last check the **setup.properties_template** to make sure you have the correct storage class selected. 
+
+
+Now go ahead and run the MQ_setup.sh which will create all the needed scripts and yamls for the student info entered. 
 ```
 Usage:
 ./MQ_setup.sh -i <student number> -n <student namespace>
